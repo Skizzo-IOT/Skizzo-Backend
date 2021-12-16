@@ -1,5 +1,5 @@
-/* const express = require("express");
-const PORT = process.env.PORT || 8080;
+const express = require("express");
+const PORT = process.env.PORT || 3000;
 
 // App
 const app = express();
@@ -62,46 +62,56 @@ app.use(express.static(__dirname + '/public'));
 server.listen(PORT, () => {
   console.log(`Server is running: http://127.0.0.1:${PORT}/`);
 });
- */
+ 
 
-const server = require('http').createServer()
-const io = require('socket.io')(server)
+// const express = require("express");
+// const http = require('http')
+// const socketio = require("socket.io");
 
-io.on('connection', function (client) {
+// const app = express();
+// const server = http.createServer(app);
+// const io = socketio(server).sockets;
 
-  console.log('client connect...', client.id);
+// app.use(express.json());
 
-  client.on('typing', function name(data) {
-    console.log(data);
-    io.emit('typing', data)
-  })
+// const server = require('http').createServer()
+// const io = require('socket.io')(server)
 
-  client.on('message', function name(data) {
-    console.log(data);
-    io.emit('message', data)
-  })
+// io.on('connection', function (client) {
 
-  client.on('location', function name(data) {
-    console.log(data);
-    io.emit('location', data);
-  })
+//   console.log('client connect...', client.id);
 
-  client.on('connect', function () {
-  })
+//   client.on('typing', function name(data) {
+//     console.log(data);
+//     io.emit('typing', data)
+//   })
 
-  client.on('disconnect', function () {
-    console.log('client disconnect...', client.id)
-    // handleDisconnect()
-  })
+//   client.on('message', function name(data) {
+//     console.log(data);
+//     io.emit('message', data)
+//   })
 
-  client.on('error', function (err) {
-    console.log('received error from client:', client.id)
-    console.log(err)
-  })
-})
+//   client.on('location', function name(data) {
+//     console.log(data);
+//     io.emit('location', data);
+//   })
 
-var server_port = process.env.PORT || 3000;
-server.listen(server_port, function (err) {
-  if (err) throw err
-  console.log('Listening on port %d', server_port);
-});
+//   client.on('connect', function () {
+//   })
+
+//   client.on('disconnect', function () {
+//     console.log('client disconnect...', client.id)
+//     // handleDisconnect()
+//   })
+
+//   client.on('error', function (err) {
+//     console.log('received error from client:', client.id)
+//     console.log(err)
+//   })
+// })
+
+// var server_port = process.env.PORT || 3000;
+// server.listen(server_port, function (err) {
+//   if (err) throw err
+//   console.log('Listening on port %d', server_port);
+// });
