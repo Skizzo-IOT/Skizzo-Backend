@@ -43,9 +43,11 @@ io.on('connection', (socket) => {
   socket.on('stream', function(image) {
     //Send image received to all users connected
     console.log(image);
-    /* socket.emit("stream", 2); */
-    socket.broadcast.emit('stream', image);
-    socket.emit('stream', image);
+    var imgArray = new Uint8Array(image.buffer);
+    console.log(imgArray);
+
+    // socket.broadcast.emit('stream', imgArray);
+    socket.emit('stream', imgArray);
   });
 
   socket.on('disconnect', () => {
