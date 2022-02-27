@@ -11,23 +11,28 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept, Origin",
+    "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept, Origin"
+  );
+  res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
   next();
 });
 
-app.use(function (req, res, next) {
-  console.log('Middleware');
-  return next();
+// init sequelize
+const db = require("./models");
+db.sequelize.sync({ force: false, alter: false }).then(() => {
+  console.log("DB Initialized.");
 });
 
-app.get('/', function (req, res, next) {
-  console.log('Get route', req.testing);
+// simple route
+app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to the Skizzo backend." });
 });
 
+require("./routes/user.routes")(app);
+require("./routes/login.routes")(app);
 
 let connections = {};
 
@@ -64,7 +69,7 @@ app.ws('/flutter', function (ws, req) {
     ws.send(msg);
     var esp32Client = app.get("esp32_client");
     if (esp32Client) {
-      esp32Client.send("Je suis un message envoyé par le client Flutter");
+      esp32Client.send(msg);
     }
   });
 });

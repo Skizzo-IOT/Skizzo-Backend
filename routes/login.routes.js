@@ -4,11 +4,10 @@ module.exports = app => {
     const router = require("express").Router();
   
     const auth = require("../middleware/auth");
-    const cors = require("../middleware/cors");
 
-    router.post("/signin", cors, login.getToken);
+    router.post("/signin", login.getToken);
 
-    router.get("/token", auth, cors, login.checkTokenValidity);
+    router.get("/token", auth, login.checkTokenValidity);
   
     app.use('/api/login', router);
 };
