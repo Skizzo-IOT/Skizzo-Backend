@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 
 require("./routes/user.routes")(app);
 require("./routes/login.routes")(app);
+require("./routes/res.routes")(app);
 
 let connections = {};
 
