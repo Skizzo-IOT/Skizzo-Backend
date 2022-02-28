@@ -20,6 +20,9 @@ exports.uploadImage = async (req, res) => {
   const userId = req.params.userId;
   try {
     const filePath = req.files["image"].path;
+    var parts = filePath.split('\\');
+    console.log(parts.pop() || parts.pop());
+    
 /*       .replace("data\\", "")
       .replace("\\", "/"); */
 
