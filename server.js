@@ -45,7 +45,7 @@ app.ws('/esp32', function (ws, req) {
   });
 
   ws.on('message', function (msg) {
-    console.log("Message reçu du client ESP32: ", msg);
+    // console.log("Message reçu du client ESP32: ", msg);
 
     var flutter = app.get("flutter_client");
     if (flutter) {

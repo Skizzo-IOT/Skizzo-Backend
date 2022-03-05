@@ -10,17 +10,18 @@ module.exports = app => {
     maxFilesSize: "4000000",
   });
 
-  //return file 
-  router.get("/:file", res.getFile);
-
   router.post(
     "/upload",
     multipartyLogoMiddleware,
     res.uploadImage
   );
 
+  router.get("/getAll",res.getAll);
+
+  router.get("/data/:file", res.getFile);
+
   router.delete(
-    "/:path",
+    "/data/:file",
     res.deleteImage
   );
 

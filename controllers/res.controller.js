@@ -4,7 +4,7 @@ var fs = require('fs');
 // Get a file
 exports.getFile = async (req, res) => {
   console.log("Get File");
-  let filePath = path.join(__dirname, "../data/", req.params.folder, "/", req.params.file);
+  let filePath = path.join(__dirname, "../data/", req.params.file);
 
   return res.sendFile(filePath, function (err) {
     if (err) {
@@ -16,34 +16,25 @@ exports.getFile = async (req, res) => {
   });
 };
 
+exports.getAll = async (req, res) => {
+  console.log("Get All");
+  const directoryPath = path.join(__dirname, "../data/");
+//passsing directoryPath and callback function
+fs.readdir(directoryPath, function (err, files) {
+    //handling error
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    } 
+    console.log(files);
+    return res.json({files});
+});
+};
+
 exports.uploadImage = async (req, res) => {
-  const userId = req.params.userId;
+  console.log(req.files);
   try {
     const filePath = req.files["image"].path;
-    var parts = filePath.split('\\');
-    console.log(parts.pop() || parts.pop());
     
-/*       .replace("data\\", "")
-      .replace("\\", "/"); */
-
-/*     const checkCompanyProfile = await CompanyProfile.findOne({
-      where: { userId: userId },
-    });
-
-    CompanyProfile.update(
-      { logo: filePath },
-      {
-        where: { userId: userId },
-      }
-    );
-    if (checkCompanyProfile.logo !== null) {
-      fs.unlink("data/" + checkCompanyProfile.logo, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    } */
     // SUCCESS, Image successfully uploaded
     return res.send(filePath);
   } catch (err) {
